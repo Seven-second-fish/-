@@ -1,4 +1,4 @@
-为了在公司电脑每天早上9点自动运行清理脚本，你可以设置一个系统定时任务。在 Ubuntu 上，你可以使用 `cron` 来实现这个功能。以下是详细步骤：
+为了在公司电脑每天早上10点自动运行清理脚本，你可以设置一个系统定时任务。在 Ubuntu 上，你可以使用 `cron` 来实现这个功能。以下是详细步骤：
 
 ### 步骤1：创建清理脚本
 首先，创建一个清理日志的脚本文件，确保它可以执行：
@@ -49,14 +49,24 @@
 2. 在 `crontab` 文件中添加以下行：
 
    ```sh
-   0 9 * * * /path/to/your/home/directory/clean_journal_logs.sh
+   # Example of job definition:
+   # .---------------- minute (0 - 59)
+   # |  .------------- hour (0 - 23)
+   # |  |  .---------- day of month (1 - 31)
+   # |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+   # |  |  |  |  .---- day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+   # |  |  |  |  |
+   # *  *  *  *  * user-command to be executed
+   0 10 * * * /home/liangwei/clean_journal_logs.sh
    ```
 
    将 `/path/to/your/home/directory/` 替换为你的实际用户主目录路径。例如，如果你的用户名是 `user`，路径应该是 `/home/user/clean_journal_logs.sh`。
+   此处10可以替换为0-23时任意时刻
 
-3. 保存并退出编辑器。
+4. 保存并退出编辑器。
 
-   如果使用 nano，按 Ctrl + O，然后按 Enter，再按 Ctrl + X 退出。如果使用 vim，按 Esc，输入 :wq，然后按 Enter。
+   如果使用 nano，按 Ctrl + O，然后按 Enter，再按 Ctrl + X 退出。
+   如果使用 vim，按 Esc，输入 :wq，然后按 Enter。
 
 ### 步骤3：处理 `sudo` 权限
 因为脚本中使用了 `sudo`，你需要配置 `sudo` 使其在执行时不需要密码。这可以通过编辑 `sudoers` 文件来实现。
